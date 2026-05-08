@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.* ?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="https://javafx.com/javafx"
+      xmlns:fx="https://javafx.com/fxml"
+      fx:controller="hr.algebra.turistika.controller.LoginController"
+      spacing="15"
+      alignment="CENTER"
+      style="-fx-padding: 40; -fx-background-color: #f0f0f0;"
+      prefWidth="400" prefHeight="300">
+    <Label text="Tursitička destinacija"
+            style="-fx-font-size: 20; -fx-font-weight: bold"/>
+    <TextField fx:id="usernameField"
+               promptText="Korisničko ime"
+               maxWidth="250"/>
+    <PasswordField fx:id="passwordField"
+                   promptText="Lozinka"
+                   maxWidth="250"/>
+    <Label fx:id="errorLabel"
+           style="-fx-text-fill: red;"
+           text=""/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="loginButton"
+                text="Prijava"
+                onAction="#handleLogin"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        <Button text="Registracija"
+                onAction="#handleRegistration"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white"/>
+    </HBox>
+
+</VBox>
