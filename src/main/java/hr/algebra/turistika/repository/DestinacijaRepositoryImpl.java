@@ -109,7 +109,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
 
     @Override
     public void delete(Long id) {
-        String sql = "DELTE FROM Destinacije WHERE id = ?";
+        String sql = "DELETE FROM Destinacije WHERE id = ?";
         obrisiAktivnosti(id);
         obrisiVodice(id);
 

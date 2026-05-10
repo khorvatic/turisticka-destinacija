@@ -13,15 +13,14 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.Optional;
 
 public class LoginController {
     @FXML
-    private TextField username;
+    private TextField usernameField;
     @FXML
-    private PasswordField password;
+    private PasswordField passwordField;
     @FXML
     private Label errorLabel;
 
@@ -29,8 +28,8 @@ public class LoginController {
 
     @FXML
     private void handleLogin() {
-        String username = this.username.getText().trim();
-        String password = this.password.getText().trim();
+        String username = this.usernameField.getText().trim();
+        String password = this.passwordField.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Unesite korisničko ime i lozinku!");
@@ -52,8 +51,8 @@ public class LoginController {
 
     @FXML
     private void handleRegistration() {
-        String username = this.username.getText().trim();
-        String password = this.password.getText().trim();
+        String username = this.usernameField.getText().trim();
+        String password = this.passwordField.getText().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Unesite korisničko ime i lozinku!");
@@ -73,7 +72,7 @@ public class LoginController {
     private void openWindow(String fxmlPath, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource(fxmlPath));
-            Stage stage = (Stage) this.username.getScene().getWindow();
+            Stage stage = (Stage) this.usernameField.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
             stage.setTitle(title);
         } catch (IOException e) {

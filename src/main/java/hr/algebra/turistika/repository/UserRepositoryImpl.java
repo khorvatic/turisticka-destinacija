@@ -1,9 +1,12 @@
 package hr.algebra.turistika.repository;
 
+import hr.algebra.turistika.model.Admin;
+import hr.algebra.turistika.model.Korisnik;
 import hr.algebra.turistika.model.User;
 import hr.algebra.turistika.util.DatabaseUtil;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -19,7 +22,20 @@ public class UserRepositoryImpl implements UserRepository{
 
         try (var stmt = connection.prepareStatement(sql)){
             stmt.setString(1, username);
-            stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()){
+                Long id = rs.getLong("id");
+                String user = rs.getString("username");
+                String password = rs.getString("password");
+                String uloga = rs.getString("uloga");
+
+                if (uloga.equals("ADMINISTRATOR")){
+                    return Optional.of(new Admin(id, user, password));
+                } else {
+                    return Optional.of(new Korisnik(id, user, password));
+                }
+            }
         } catch (SQLException e){
             throw new RuntimeException("Greska pri dohvacanju korisnika", e);
         }
