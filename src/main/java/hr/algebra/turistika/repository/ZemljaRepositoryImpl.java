@@ -52,7 +52,7 @@ public class ZemljaRepositoryImpl implements ZemljaRepository{
 
     @Override
     public void save(Zemlja zemlja) {
-        String sql = "INSERT INTO Zemlja(naziv, kodDrzave) VALUES (?, ?)";
+        String sql = "INSERT INTO Zemlja(naziv, kod_drzave) VALUES (?, ?)";
 
         try(PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             stmt.setString(1, zemlja.getNaziv());
@@ -70,7 +70,7 @@ public class ZemljaRepositoryImpl implements ZemljaRepository{
 
     @Override
     public void update(Zemlja zemlja) {
-        String sql = "UPDATE Zemlja SET naziv = ?, kodDrzave = ? WHERE id = ?";
+        String sql = "UPDATE Zemlja SET naziv = ?, kod_drzave = ? WHERE id = ?";
 
         try(PreparedStatement stmt = connection.prepareStatement(sql)){
             stmt.setString(1, zemlja.getNaziv());
@@ -99,7 +99,7 @@ public class ZemljaRepositoryImpl implements ZemljaRepository{
         return new Zemlja(
                 rs.getLong("id"),
                 rs.getString("naziv"),
-                rs.getString("kodDrzave")
+                rs.getString("kod_drzave")
         );
     }
 }

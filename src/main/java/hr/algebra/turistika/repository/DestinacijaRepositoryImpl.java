@@ -2,7 +2,6 @@ package hr.algebra.turistika.repository;
 
 import hr.algebra.turistika.model.*;
 import hr.algebra.turistika.util.DatabaseUtil;
-import org.h2.command.Prepared;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -174,7 +173,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
                 rs.getDouble("latitude"),
                 rs.getDouble("longitude"),
                 rs.getString("preporucenoGodisnjeDoba"),
-                rs.getString("putanjaFotografije"),
+                rs.getString("putanjaFotografija"),
                 zemlja,
                 vrsta
         );
@@ -186,7 +185,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
         stmt.setDouble(3, d.getLatitude());
         stmt.setDouble(4, d.getLongitude());
         stmt.setString(5, d.getPreporucenoGodisnjeDoba());
-        stmt.setString(6, d.getPutanjaFotografije());
+        stmt.setString(6, d.getPutanjaFotografija());
         stmt.setLong(7, d.getZemlja().getId());
         stmt.setInt(8, d.getVrstaPutovanja().ordinal() + 1);
     }

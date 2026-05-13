@@ -10,6 +10,19 @@ public class DatabaseInitializer {
     public static void initialize(){
         executeScript("sql/create_tables.sql");
         createDefaultAdmin();
+        insertTestData();
+    }
+
+    private static void insertTestData(){
+        try (var stmt = DatabaseUtil.getInstance()
+                .getConnection().createStatement()) {
+            var rs = stmt.executeQuery("SELECT COUNT(*) FROM Zemlja");
+            if (rs.next() && rs.getInt(1) > 0) return;
+
+            executeScript("sql/insert_test_data.sql");
+        } catch (Exception e) {
+            throw new RuntimeException("Greska pri unosu testnih podataka", e);
+        }
     }
 
     public static void executeScript(String path){

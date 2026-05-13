@@ -11,7 +11,7 @@ public class Destinacija implements Comparable<Destinacija>{
     private Double latitude;
     private Double longitude;
     private String preporucenoGodisnjeDoba;
-    private String putanjaFotografije;
+    private String putanjaFotografija;
     private Zemlja zemlja;
     private VrstaPutovanja vrstaPutovanja;
     private List<Aktivnost> aktivnosti;
@@ -23,7 +23,7 @@ public class Destinacija implements Comparable<Destinacija>{
         this.latitude = latitude;
         this.longitude = longitude;
         this.preporucenoGodisnjeDoba = preporucenoGodisnjeDoba;
-        this.putanjaFotografije = putanjaFotografije;
+        this.putanjaFotografija = putanjaFotografije;
         this.zemlja = zemlja;
         this.vrstaPutovanja = vrstaPutovanja;
         this.aktivnosti = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Destinacija implements Comparable<Destinacija>{
         this.latitude = latitude;
         this.longitude = longitude;
         this.preporucenoGodisnjeDoba = preporucenoGodisnjeDoba;
-        this.putanjaFotografije = putanjaFotografije;
+        this.putanjaFotografija = putanjaFotografije;
         this.zemlja = zemlja;
         this.vrstaPutovanja = vrstaPutovanja;
         this.aktivnosti = new ArrayList<>();
@@ -92,12 +92,12 @@ public class Destinacija implements Comparable<Destinacija>{
         this.preporucenoGodisnjeDoba = preporucenoGodisnjeDoba;
     }
 
-    public String getPutanjaFotografije() {
-        return putanjaFotografije;
+    public String getPutanjaFotografija() {
+        return putanjaFotografija;
     }
 
-    public void setPutanjaFotografije(String putanjaFotografije) {
-        this.putanjaFotografije = putanjaFotografije;
+    public void setPutanjaFotografija(String putanjaFotografija) {
+        this.putanjaFotografija = putanjaFotografija;
     }
 
     public Zemlja getZemlja() {
