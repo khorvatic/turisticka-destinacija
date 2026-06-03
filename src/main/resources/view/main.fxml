@@ -9,7 +9,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="hr.algebra.turistika.controller.MainController"
-            prefWidth="1000" prefHeight="700">
+            prefWidth="1200" prefHeight="900">
     <top>
         <MenuBar>
             <Menu text="Destinacije">
@@ -28,42 +28,50 @@
 
     <!-- Main content -->
     <center>
-        <VBox spacing="10" style="-fx-padding: 10;">
-            <!-- Filter bar -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Pretraži:"/>
-                <TextField fx:id="searchField"
-                           promptText="Naziv destinacije..."
-                           prefWidth="200"
-                           onKeyReleased="#pretraziDestinacije"/>
-                <Label text="Zemlja:"/>
-                <ComboBox fx:id="zemljaFilter" promptText="Sve zemlje"/>
-                <Label text="Vrsta:"/>
-                <ComboBox fx:id="vrstaPutovanjaFilter" promptText="Sve vrste putovanja"/>
-                <Button text="Resetiraj filtere" onAction="#resetirajFiltere"/>
-            </HBox>
+        <HBox>
+            <VBox spacing="10" style="-fx-padding: 10;" HBox.hgrow="ALWAYS">
+                <!-- Filter bar -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Pretraži:"/>
+                    <TextField fx:id="searchField"
+                               promptText="Naziv destinacije..."
+                               prefWidth="200"
+                               onKeyReleased="#pretraziDestinacije"/>
+                    <Label text="Zemlja:"/>
+                    <ComboBox fx:id="zemljaFilter" promptText="Sve zemlje"/>
+                    <Label text="Vrsta:"/>
+                    <ComboBox fx:id="vrstaPutovanjaFilter" promptText="Sve vrste putovanja"/>
+                    <Button text="Resetiraj filtere" onAction="#resetirajFiltere"/>
+                </HBox>
 
-            <!-- Table view -->
-            <TableView fx:id="destinacijeTable" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="nazivColumn" text="Naziv" prefWidth="200"/>
-                    <TableColumn fx:id="zemljaColumn" text="Zemlja" prefWidth="150"/>
-                    <TableColumn fx:id="vrstaPutovanjaColumn" text="Vrsta putovanja" prefWidth="150"/>
-                    <TableColumn fx:id="godisnjeDobaColumn" text="Godišnje doba" prefWidth="120"/>
-                    <TableColumn fx:id="aktivnostiColumn" text="Aktivnosti" prefWidth="200"/>
-                </columns>
-            </TableView>
+                <!-- Table view -->
+                <TableView fx:id="destinacijeTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="nazivColumn" text="Naziv" prefWidth="200"/>
+                        <TableColumn fx:id="zemljaColumn" text="Zemlja" prefWidth="150"/>
+                        <TableColumn fx:id="vrstaPutovanjaColumn" text="Vrsta putovanja" prefWidth="150"/>
+                        <TableColumn fx:id="godisnjeDobaColumn" text="Godišnje doba" prefWidth="120"/>
+                        <TableColumn fx:id="aktivnostiColumn" text="Aktivnosti" prefWidth="200"/>
+                    </columns>
+                </TableView>
 
-            <!-- Action buttons -->
-            <HBox spacing="10">
-                <Button text="Uredi" onAction="#urediDestinaciju"
-                        style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
-                <Button text="Obirši" onAction="#obrisiDestinaciju"
-                        style="-fx-background-color: #f44336; -fx-text-fill: white"/>
-                <Button text="Detalji" onAction="#prikaziDetalje"
-                        style="-fx-background-color: #4CAF50; -fx-text-fill: white"/>
-            </HBox>
-        </VBox>
+                <!-- Action buttons -->
+                <HBox spacing="10">
+                    <Button text="Dodaj" onAction="#otvoriDodajDestinaciju"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button text="Uredi" onAction="#urediDestinaciju"
+                            style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                    <Button text="Obirši" onAction="#obrisiDestinaciju"
+                            style="-fx-background-color: #f44336; -fx-text-fill: white"/>
+                    <Button text="Detalji" onAction="#prikaziDetalje"
+                            style="-fx-background-color: #FF9800; -fx-text-fill: white"/>
+                </HBox>
+            </VBox>
+
+            <fx:include fx:id="destinacijaForma"
+                        source="destinacija-forma.fxml"
+                        prefWidth="350"/>
+        </HBox>
     </center>
 
     <!-- Status bar -->

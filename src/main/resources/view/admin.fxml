@@ -10,7 +10,31 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="hr.algebra.turistika.controller.AdminController"
       alignment="CENTER" spacing="20"
+      prefWidth="500"
       style="-fx-padding: 40;">
-    <Label text="Admin panel - u izradi"
-           style="-fx-font-size: 18;"/>
+    <Label text="Admin panel"
+           style="-fx-font-size: 22; -fx-font-weight: bold"/>
+    <Separator/>
+
+    <Label text="Upravljanje podacima"
+           style="-fx-font-size: 14;"/>
+
+    <Button text="Obrisi sve podatke"
+            onAction="#obrisiSvePodatke"
+            prefWidth="200"
+            style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+
+    <Button text="Ucitaj test podatke"
+            onAction="#ucitajTestPodatke"
+            prefWidth="200"
+            style="-fx-background-color: #FF9800; -fx-text-fill: white;"/>
+    <Separator/>
+
+    <Button text="Otvori aplikaciju"
+            onAction="#otvoriAplikaciju"
+            prefWidth="200"
+            style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+
+    <Label fx:id="statusLabel" text=""
+           style="-fx-text-fill: green;"/>
 </VBox>

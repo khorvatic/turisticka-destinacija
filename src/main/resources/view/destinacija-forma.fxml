@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/javafx"
+      fx:controller="hr.algebra.turistika.controller.DestinacijaFormaController"
+      fx:id="formaPanel"
+      spacing="12"
+      style="-fx-padding: 15; -fx-background-color: #fafafa; -fx-border-color: #ddd; -fx-border-width: 0 0 0 1;">
+
+    <Label fx:id="formaNaslov" text="Nova destinacija"
+           style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+    <Separator/>
+
+    <VBox spacing="3">
+        <Label text="Naziv *"/>
+        <TextField fx:id="nazivField" promptText="Naziv destinacije"/>
+    </VBox>
+
+    <VBox spacing="3">
+        <Label text="Opis *"/>
+        <TextArea fx:id="opisField" promptText="Opis destinacije" prefRowCount="3" wrapText="true"/>
+    </VBox>
+
+    <HBox spacing="10">
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="Latitude"/>
+            <TextField fx:id="latitudeField" promptText="npr. 32.8256"/>
+        </VBox>
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <Label text="Longitude"/>
+            <TextField fx:id="longitudeField" promptText="npr. 12.3289"/>
+        </VBox>
+    </HBox>
+
+    <VBox spacing="3">
+        <Label text="Preporuceno godisnje doba"/>
+        <ComboBox fx:id="godisnjeDobaCombo" maxWidth="Infinity"/>
+    </VBox>
+
+    <VBox spacing="3">
+        <Label text="Zemlja *"/>
+        <ComboBox fx:id="zemljaCombo" maxWidth="Infinity" promptText="Odaberi zemlju"/>
+    </VBox>
+
+    <VBox spacing="3">
+        <Label text="Vrsta putovanja *"/>
+        <ComboBox fx:id="vrstaPutovanjaCombo" maxWidth="Infinity" promptText="Odaberi vrstu putovanja"/>
+    </VBox>
+
+    <VBox spacing="3">
+        <Label text="Aktivnosti"/>
+        <ScrollPane prefHeight="120" fitToWidth="true" style="-fx-border-color: #ccc">
+            <VBox fx:id="aktivnostiContainer" spacing="5" style="-fx-padding: 5;"/>
+        </ScrollPane>
+    </VBox>
+
+    <Separator/>
+
+    <Label fx:id="formaErrorLabel" text="" style="-fx-text-fill: red;" wrapText="true"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Odustani" onAction="#odustaniForma"
+                style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+        <Button text="Spremi" onAction="#spremiDestinaciju"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold"/>
+    </HBox>
+</VBox>

@@ -34,6 +34,8 @@ public class MainController implements Initializable {
 
     @FXML private Label statusLabel;
 
+    @FXML private DestinacijaFormaController destinacijaFormaController;
+
     private final DestinacijaRepository destinacijaRepository = new DestinacijaRepositoryImpl();
     private final ZemljaRepository zemljaRepository = new ZemljaRepositoryImpl();
 
@@ -45,6 +47,7 @@ public class MainController implements Initializable {
         postaviKolone();
         popuniFiltere();
         ucitajDestinacije();
+        statusLabel.setText("Destiancija uspjesno spremljena!");
     }
 
     private void postaviKolone(){
@@ -76,6 +79,9 @@ public class MainController implements Initializable {
 
     @FXML
     private void ucitajDestinacije() {
+        List<Destinacija> lista = destinacijaRepository.findAll();
+        System.out.println("Broj destinacija: " + destinacije.size());
+        lista.forEach(d -> System.out.println(" - " + d.getNaziv() + ", zemlja: " + d.getZemlja()));
         destinacije.setAll(destinacijaRepository.findAll());
         destinacijeTable.setItems(destinacije);
         statusLabel.setText("Učitano " + destinacije.size() + " destinacija");
@@ -122,8 +128,8 @@ public class MainController implements Initializable {
 
     @FXML
     private void otvoriDodajDestinaciju() {
-        // TODO: Implementiraj otvori dodaj destinaciju
-        statusLabel.setText("Dodavanje destinacije - u izradi");
+        destinacijaFormaController.otvoriZaDodavanje();
+        statusLabel.setText("Dodavanje nove destinacije...");
     }
 
     @FXML
@@ -133,8 +139,8 @@ public class MainController implements Initializable {
             statusLabel.setText("Odaberite destinaciju za uređivanje!");
             return;
         }
-        // TODO - Implementiraj uredivanje destinacije
-        statusLabel.setText("Uređivanje destinacije - u izradi");
+        destinacijaFormaController.otvoriZaUredivanje(odabranaDestinacija);
+        statusLabel.setText("Uredivanje: " + odabranaDestinacija.getNaziv());
     }
 
     @FXML

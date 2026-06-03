@@ -87,7 +87,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
     public void update(Destinacija destinacija) {
         String sql = """
                 UPDATE Destinacija SET
-                naziv = ?, opis = ?, latitude = ?, logitude = ?, preporucenoGodisnjeDoba = ?, putanjaFotografija = ?,
+                naziv = ?, opis = ?, latitude = ?, longitude = ?, preporucenoGodisnjeDoba = ?, putanjaFotografija = ?,
                 zemljaId = ?, vrstaPutovanjaId = ?
                 WHERE id = ? 
                 """;
@@ -108,7 +108,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
 
     @Override
     public void delete(Long id) {
-        String sql = "DELETE FROM Destinacije WHERE id = ?";
+        String sql = "DELETE FROM Destinacija WHERE id = ?";
         obrisiAktivnosti(id);
         obrisiVodice(id);
 
