@@ -56,9 +56,16 @@
 
     <VBox spacing="3">
         <Label text="Aktivnosti"/>
-        <ScrollPane prefHeight="120" fitToWidth="true" style="-fx-border-color: #ccc">
-            <VBox fx:id="aktivnostiContainer" spacing="5" style="-fx-padding: 5;"/>
-        </ScrollPane>
+        <HBox spacing="10">
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Dostupne" style="-fx-font-size: 11;"/>
+                <ListView fx:id="dostupneAktivnosti" prefHeight="150"/>
+            </VBox>
+            <VBox spacing="3" HBox.hgrow="ALWAYS">
+                <Label text="Dodane" style="-fx-font-size: 11;"/>
+                <ListView fx:id="dodaneAktivnosti" prefHeight="150"/>
+            </VBox>
+        </HBox>
     </VBox>
 
     <Separator/>

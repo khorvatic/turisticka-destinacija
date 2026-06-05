@@ -1,0 +1,12 @@
+<config>
+    <window>
+        <width>1200</width>
+        <height>900</height>
+        <title>Turističa destinacija</title>
+    </window>
+    <database>
+        <url>jdbc:h2:file:./data/turistika;AUTO_SERVER=TRUE</url>
+        <username>sa</username>
+        <password></password>
+    </database>
+</config>

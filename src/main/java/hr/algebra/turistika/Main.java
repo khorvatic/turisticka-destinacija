@@ -1,5 +1,6 @@
 package hr.algebra.turistika;
 
+import hr.algebra.turistika.util.AppConfig;
 import hr.algebra.turistika.util.DatabaseInitializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,11 +12,15 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         DatabaseInitializer.initialize();
 
+        AppConfig config = AppConfig.getInstance();
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getClassLoader().getResource("view/login.fxml"));
         Scene scene = new Scene(loader.load());
 
-        stage.setTitle("Turistička agencija");
+        stage.setTitle(config.getWindowTitle());
+        stage.setWidth(config.getWindowWidth());
+        stage.setHeight(config.getWindowHeight());
         stage.setScene(scene);
         stage.show();
 

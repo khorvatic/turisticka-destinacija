@@ -12,16 +12,16 @@ public class DatabaseUtil {
     private final String password;
 
     private DatabaseUtil() {
-        url = "jdbc:h2:file:./data/turistika;AUTO_SERVER=TRUE";
-        username = "sa";
-        password = "";
+        AppConfig config = AppConfig.getInstance();
+        url = config.getDatabaseUrl();
+        username = config.getDatabaseUsername();
+        password = config.getDatabasePassword();
         try {
             if (connection == null || connection.isClosed())
                 connection = DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
-            throw new RuntimeException("Greska pri spajanju na bazu", e);
+            throw new RuntimeException("Greska pri povezivanju sa bazom", e);
         }
-
     }
 
     public static synchronized DatabaseUtil getInstance() {

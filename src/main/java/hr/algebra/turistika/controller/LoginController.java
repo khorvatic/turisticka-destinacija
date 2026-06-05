@@ -5,6 +5,8 @@ import hr.algebra.turistika.model.Korisnik;
 import hr.algebra.turistika.model.User;
 import hr.algebra.turistika.repository.UserRepository;
 import hr.algebra.turistika.repository.UserRepositoryImpl;
+import hr.algebra.turistika.util.SessionManager;
+import hr.algebra.turistika.util.XmlLogger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,6 +43,9 @@ public class LoginController {
             errorLabel.setText("Pogrešno korisničko ime ili lozinka!");
             return;
         }
+
+        SessionManager.getInstance().postavi(user.get());
+        XmlLogger.log(user.get().getUsername(), "LOGIN", "Korisnik se prijavio");
 
         if (user.get() instanceof Admin){
             openWindow("view/admin.fxml", "Admin panel");

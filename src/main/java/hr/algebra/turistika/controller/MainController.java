@@ -8,6 +8,8 @@ import hr.algebra.turistika.repository.DestinacijaRepository;
 import hr.algebra.turistika.repository.DestinacijaRepositoryImpl;
 import hr.algebra.turistika.repository.ZemljaRepository;
 import hr.algebra.turistika.repository.ZemljaRepositoryImpl;
+import hr.algebra.turistika.util.SessionManager;
+import hr.algebra.turistika.util.XmlLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,6 +50,15 @@ public class MainController implements Initializable {
         popuniFiltere();
         ucitajDestinacije();
         statusLabel.setText("Destiancija uspjesno spremljena!");
+        destinacijaFormaController.postaviOnSpremi(() -> {
+            ucitajDestinacije();
+            statusLabel.setText("Destinacija uspjesno spremljena!");
+            XmlLogger.log(
+                    SessionManager.getInstance().getKorisnickoIme(),
+                    "SPREMI",
+                    "Spremljena destinacija"
+            );
+        });
     }
 
     private void postaviKolone(){
@@ -160,6 +171,11 @@ public class MainController implements Initializable {
                 destinacijaRepository.delete(odabrana.getId());
                 ucitajDestinacije();
                 statusLabel.setText("Destinacija obrisana!");
+                XmlLogger.log(
+                        SessionManager.getInstance().getKorisnickoIme(),
+                        "BRISANJE",
+                        "Obrisana destinacija: " + odabrana.getNaziv()
+                );
             }
         });
     }
@@ -171,8 +187,6 @@ public class MainController implements Initializable {
             statusLabel.setText("Odaberite destinaciju!");
             return;
         }
-        // TODO - Implementiraj prikaz detalja destinacije
-        statusLabel.setText("Detalji destinacije - u izradi");
     }
 
     @FXML

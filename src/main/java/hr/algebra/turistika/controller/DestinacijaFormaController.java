@@ -8,6 +8,9 @@ import hr.algebra.turistika.repository.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -25,7 +28,8 @@ public class DestinacijaFormaController implements Initializable {
     @FXML private ComboBox<String> godisnjeDobaCombo;
     @FXML private ComboBox<Zemlja> zemljaCombo;
     @FXML private ComboBox<VrstaPutovanja> vrstaPutovanjaCombo;
-    @FXML private VBox aktivnostiContainer;
+    @FXML private ListView<Aktivnost> dostupneAktivnosti;
+    @FXML private ListView<Aktivnost> dodaneAktivnosti;
     @FXML private Label formaErrorLabel;
 
     private final ZemljaRepository zemljaRepository = new ZemljaRepositoryImpl();
@@ -43,6 +47,7 @@ public class DestinacijaFormaController implements Initializable {
                 "Proljeće", "Ljeto", "Jesen", "Zima"
         );
         popuniAktivnosti();
+        postaviDragAndDrop();
         sakrijFormu();
     }
 
@@ -139,9 +144,8 @@ public class DestinacijaFormaController implements Initializable {
         godisnjeDobaCombo.setValue(null);
         zemljaCombo.setValue(null);
         vrstaPutovanjaCombo.setValue(null);
-        aktivnostiContainer.getChildren().forEach(node -> {
-            if (node instanceof CheckBox cb) cb.setSelected(false);
-        });
+        formaErrorLabel.setText("");
+        popuniAktivnosti();
     }
 
     private void popuniFormu(Destinacija d){
@@ -153,31 +157,59 @@ public class DestinacijaFormaController implements Initializable {
         zemljaCombo.setValue(d.getZemlja());
         vrstaPutovanjaCombo.setValue(d.getVrstaPutovanja());
         formaErrorLabel.setText("");
-        aktivnostiContainer.getChildren().forEach(node -> {
-            if (node instanceof CheckBox cb) {
-                Aktivnost a = (Aktivnost) cb.getUserData();
-                cb.setSelected(d.getAktivnosti().contains(a));
-            }
-        });
+        popuniAktivnosti();
+        dodaneAktivnosti.getItems().setAll(d.getAktivnosti());
+        dostupneAktivnosti.getItems().removeAll(dodaneAktivnosti.getItems());
     }
 
     private void popuniAktivnosti(){
-        aktivnostiContainer.getChildren().clear();
-        for (Aktivnost a : aktivnostRepository.findAll()){
-            CheckBox cb = new CheckBox(a.getNaziv());
-            cb.setUserData(a);
-            aktivnostiContainer.getChildren().add(cb);
-        }
+        dostupneAktivnosti.getItems().setAll(aktivnostRepository.findAll());
+        dodaneAktivnosti.getItems().clear();
     }
 
     private List<Aktivnost> dohvatiOdabraneAktivnosti(){
-        List<Aktivnost> odabrane = new ArrayList<>();
-        aktivnostiContainer.getChildren().forEach(node -> {
-            if (node instanceof CheckBox cb && cb.isSelected()) {
-                odabrane.add((Aktivnost) cb.getUserData());
-            }
+        return new ArrayList<>(dodaneAktivnosti.getItems());
+    }
+
+    private void postaviDragAndDrop() {
+        postaviDragIzvor(dostupneAktivnosti, dodaneAktivnosti);
+        postaviDragIzvor(dodaneAktivnosti, dostupneAktivnosti);
+    }
+
+    private void postaviDragIzvor(ListView<Aktivnost> izvor, ListView<Aktivnost> cilj) {
+        izvor.setOnDragDetected(event -> {
+            Aktivnost odabrana = izvor.getSelectionModel().getSelectedItem();
+            if (odabrana == null) return;
+
+            Dragboard db = izvor.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(odabrana.getNaziv());
+            db.setContent(content);
+            event.consume();
         });
-        return odabrane;
+
+        cilj.setOnDragOver(event -> {
+            if (event.getGestureSource() != cilj && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        cilj.setOnDragDropped(event -> {
+            String naziv = event.getDragboard().getString();
+            Aktivnost aktivnost = izvor.getItems().stream()
+                    .filter(a -> a.getNaziv().equals(naziv))
+                    .findFirst()
+                    .orElse(null);
+
+            if (aktivnost != null) {
+                izvor.getItems().remove(aktivnost);
+                cilj.getItems().add(aktivnost);
+                event.setDropCompleted(true);
+            } else event.setDropCompleted(false);
+
+            event.consume();
+        });
     }
 
     private Double parseDouble(String text){
