@@ -41,3 +41,6 @@ build/
 
 ### H2 Database ###
 data/
+
+exports/
+logs/

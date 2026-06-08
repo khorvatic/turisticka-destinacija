@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log>
+            
+    
+    <entry>
+                        
+        
+        <timestamp>2026-06-08 12:55:28</timestamp>
+                        
+        
+        <korisnik>user</korisnik>
+                        
+        
+        <akcija>LOGIN</akcija>
+                        
+        
+        <opis>Korisnik se prijavio</opis>
+                    
+    
+    </entry>
+        
+    
+    <entry>
+                
+        <timestamp>2026-06-08 12:56:43</timestamp>
+                
+        <korisnik>user</korisnik>
+                
+        <akcija>LOGIN</akcija>
+                
+        <opis>Korisnik se prijavio</opis>
+            
+    </entry>
+    
+    <entry>
+        <timestamp>2026-06-08 12:56:50</timestamp>
+        <korisnik>user</korisnik>
+        <akcija>EXPORT</akcija>
+        <opis>Exportirano 3 destinacija</opis>
+    </entry>
+</log>

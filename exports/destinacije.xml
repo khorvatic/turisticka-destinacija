@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<destinacije>
+    <destinacija>
+        <naziv>Dubrovnik</naziv>
+        <opis>Biser Jadrana</opis>
+        <zemlja>Hrvatska</zemlja>
+        <vrstaPutovanja>Plažni odmor</vrstaPutovanja>
+        <preporucenoGodisnjeDoba>Ljeto</preporucenoGodisnjeDoba>
+        <latitude>42.6507</latitude>
+        <longitude>18.0122</longitude>
+        <aktivnosti>
+            <aktivnost>Ronjenje</aktivnost>
+            <aktivnost>Razgledavanje</aktivnost>
+        </aktivnosti>
+        <vodici/>
+    </destinacija>
+    <destinacija>
+        <naziv>Rim</naziv>
+        <opis>Vječni grad</opis>
+        <zemlja>Italija</zemlja>
+        <vrstaPutovanja>Gastronomski turizam</vrstaPutovanja>
+        <preporucenoGodisnjeDoba>Proljeće</preporucenoGodisnjeDoba>
+        <latitude>41.9028</latitude>
+        <longitude>12.4964</longitude>
+        <aktivnosti>
+            <aktivnost>Razgledavanje</aktivnost>
+        </aktivnosti>
+        <vodici/>
+    </destinacija>
+    <destinacija>
+        <naziv>Paris</naziv>
+        <opis>Stakori vladaju, pljacka moguca</opis>
+        <zemlja>Francuska</zemlja>
+        <vrstaPutovanja>Kulturni turizam</vrstaPutovanja>
+        <preporucenoGodisnjeDoba>Ljeto</preporucenoGodisnjeDoba>
+        <latitude>123.123123</latitude>
+        <longitude>456.456456</longitude>
+        <aktivnosti>
+            <aktivnost>Razgledavanje</aktivnost>
+        </aktivnosti>
+        <vodici/>
+    </destinacija>
+</destinacije>

@@ -40,7 +40,7 @@ public class AppConfig {
             windowTitle = getTagValue("title", window);
 
             Element database = (Element) doc.getElementsByTagName("database").item(0);
-            databaseUrl = getTagValue("username", database);
+            databaseUrl = getTagValue("url", database);
             databaseUsername = getTagValue("username", database);
             databasePassword = getTagValue("password", database);
         } catch(Exception e) {

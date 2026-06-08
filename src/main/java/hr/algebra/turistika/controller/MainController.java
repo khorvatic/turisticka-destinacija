@@ -9,7 +9,9 @@ import hr.algebra.turistika.repository.DestinacijaRepositoryImpl;
 import hr.algebra.turistika.repository.ZemljaRepository;
 import hr.algebra.turistika.repository.ZemljaRepositoryImpl;
 import hr.algebra.turistika.util.SessionManager;
+import hr.algebra.turistika.util.XmlExporter;
 import hr.algebra.turistika.util.XmlLogger;
+import hr.algebra.turistika.xml.DestinacijaXml;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -191,7 +193,19 @@ public class MainController implements Initializable {
 
     @FXML
     private void exportXml() {
-        // TODO - Implementiraj export u XML
-        statusLabel.setText("Export u XML - u izradi");
+        List<DestinacijaXml> xmlDestinacije = destinacijaRepository.findAll()
+                .stream()
+                .map(DestinacijaXml::new)
+                .toList();
+
+        String path = "exports/destinacije.xml";
+        XmlExporter.export(xmlDestinacije, path);
+
+        XmlLogger.log(
+                SessionManager.getInstance().getKorisnickoIme(),
+                "EXPORT",
+                "Exportirano " + xmlDestinacije.size() + " destinacija");
+
+        statusLabel.setText("Exportirano u " + path);
     }
 }
