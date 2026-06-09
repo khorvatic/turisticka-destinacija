@@ -15,4 +15,8 @@ public interface DestinacijaRepository {
 
     List<Destinacija> findByZemlja(Long zemljaId);
     List<Destinacija> findByVrstaPutovanja(VrstaPutovanja vrsta);
+
+    default boolean exists(Long id){
+        return findById(id).isPresent();
+    }
 }

@@ -16,10 +16,6 @@
                 <MenuItem text="Sve destinacije" onAction="#ucitajDestinacije"/>
                 <MenuItem text="Dodaj destinaciju" onAction="#otvoriDodajDestinaciju"/>
             </Menu>
-            <Menu text="Filteri">
-                <MenuItem text="Po zemlji" onAction="#filtrirajPoZemlji"/>
-                <MenuItem text="Po vrsti putovanja" onAction="#filtrirajPoVrsti"/>
-            </Menu>
             <Menu text="Export">
                 <MenuItem text="XML Export" onAction="#exportXml"/>
             </Menu>
@@ -35,13 +31,11 @@
                     <Label text="Pretraži:"/>
                     <TextField fx:id="searchField"
                                promptText="Naziv destinacije..."
-                               prefWidth="200"
-                               onKeyReleased="#pretraziDestinacije"/>
+                               prefWidth="200"/>
                     <Label text="Zemlja:"/>
                     <ComboBox fx:id="zemljaFilter" promptText="Sve zemlje"/>
                     <Label text="Vrsta:"/>
                     <ComboBox fx:id="vrstaPutovanjaFilter" promptText="Sve vrste putovanja"/>
-                    <Button text="Resetiraj filtere" onAction="#resetirajFiltere"/>
                 </HBox>
 
                 <!-- Table view -->

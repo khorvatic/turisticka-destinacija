@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hr.algebra.turistika.controller.ZemljaController"
+            prefHeight="900" prefWidth="600.0">
+    <center>
+        <HBox>
+            <VBox spacing="10" style="-fx-padding: 10;" HBox.hgrow="ALWAYS">
+                <TableView fx:id="table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="nazivColumn" text="Naziv" prefWidth="200"/>
+                        <TableColumn fx:id="kodColumn" text="Kod drzave" prefWidth="100"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10">
+                    <Button text="Dodaj" onAction="#otvoriDodavanje"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                    <Button text="Uredi" onAction="#otvoriUredivanje"
+                            style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                    <Button text="Obrisi" onAction="#obrisi"
+                            style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+
+            <VBox fx:id="formaPanel" spacing="12"
+                  style="-fx-padding: 15; -fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 0 0 0 1;"
+                  prefWidth="300">
+                <Label fx:id="formaNaslov" text="Nova zemlja"
+                       style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                <Separator/>
+                <VBox spacing="3">
+                    <Label text="Naziv *"/>
+                    <TextField fx:id="nazivField" promptText="Naziv zemlje"/>
+                </VBox>
+                <VBox spacing="3">
+                    <Label text="Kod drzave *"/>
+                    <TextField fx:id="kodField" promptText="npr. HR"/>
+                </VBox>
+                <Label fx:id="errorLabel" text=""
+                       style="-fx-text-fill: red;" wrapText="true"/>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Odustani" onAction="#odustani"
+                            style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+                    <Button text="Spremi" onAction="#spremi"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <HBox style="-fx-padding: 5; -fx-background-color: #white;">
+            <Label fx:id="statusLabel" text="Spremno"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

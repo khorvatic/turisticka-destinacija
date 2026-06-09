@@ -8,18 +8,22 @@ import hr.algebra.turistika.repository.DestinacijaRepository;
 import hr.algebra.turistika.repository.DestinacijaRepositoryImpl;
 import hr.algebra.turistika.repository.ZemljaRepository;
 import hr.algebra.turistika.repository.ZemljaRepositoryImpl;
+import hr.algebra.turistika.service.DestinacijaService;
 import hr.algebra.turistika.util.SessionManager;
 import hr.algebra.turistika.util.XmlExporter;
 import hr.algebra.turistika.util.XmlLogger;
 import hr.algebra.turistika.xml.DestinacijaXml;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -42,6 +46,7 @@ public class MainController implements Initializable {
 
     private final DestinacijaRepository destinacijaRepository = new DestinacijaRepositoryImpl();
     private final ZemljaRepository zemljaRepository = new ZemljaRepositoryImpl();
+    private final DestinacijaService destinacijaService = new DestinacijaService(destinacijaRepository);
 
     private ObservableList<Destinacija> destinacije
             = FXCollections.observableArrayList();
@@ -50,6 +55,7 @@ public class MainController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         postaviKolone();
         popuniFiltere();
+        postaviFilterListenere();
         ucitajDestinacije();
         statusLabel.setText("Destiancija uspjesno spremljena!");
         destinacijaFormaController.postaviOnSpremi(() -> {
@@ -84,51 +90,87 @@ public class MainController implements Initializable {
     }
 
     private void popuniFiltere() {
-        List<Zemlja> zemlje = zemljaRepository.findAll();
+        List<Zemlja> zemlje = new ArrayList<>();
+        zemlje.add(null);
+        zemlje.addAll(zemljaRepository.findAll());
         zemljaFilter.setItems(FXCollections.observableArrayList(zemlje));
+        zemljaFilter.setConverter(new StringConverter<Zemlja>() {
+            @Override
+            public String toString(Zemlja z) {
+                return z != null ? z.toString() : "Sve zemlje";
+            }
+            @Override
+            public Zemlja fromString(String s) { return null; }
+        });
 
-        vrstaPutovanjaFilter.setItems(FXCollections.observableArrayList(VrstaPutovanja.values()));
+        List<VrstaPutovanja> vrste = new ArrayList<>();
+        vrste.add(null);
+        vrste.addAll(List.of(VrstaPutovanja.values()));
+        vrstaPutovanjaFilter.setItems(FXCollections.observableArrayList(vrste));
+        vrstaPutovanjaFilter.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(VrstaPutovanja v) {
+                return v != null ? v.toString() : "Sve vrste putovanja";
+            }
+            @Override
+            public VrstaPutovanja fromString(String s) { return null; }
+        });
+    }
+
+    private void postaviFilterListenere() {
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) -> applyFilters());
+        zemljaFilter.valueProperty().addListener(
+                (observable, oldValue, newValue) -> applyFilters());
+        vrstaPutovanjaFilter.valueProperty().addListener(
+                (observable, oldValue, newValue) -> applyFilters());
+    }
+
+    private void applyFilters() {
+        Task<List<Destinacija>> task = new Task<>() {
+            @Override
+            protected List<Destinacija> call() {
+                return destinacijaService.filter(
+                        searchField.getText(),
+                        zemljaFilter.getValue(),
+                        vrstaPutovanjaFilter.getValue()
+                );
+            }
+        };
+
+        task.setOnSucceeded(event -> {
+            destinacije.setAll(task.getValue());
+            destinacijeTable.setItems(destinacije);
+            statusLabel.setText("Pronadeno " + destinacije.size() + " destinacija");
+            }
+        );
+
+        new Thread(task).start();
     }
 
     @FXML
     private void ucitajDestinacije() {
-        List<Destinacija> lista = destinacijaRepository.findAll();
-        System.out.println("Broj destinacija: " + destinacije.size());
-        lista.forEach(d -> System.out.println(" - " + d.getNaziv() + ", zemlja: " + d.getZemlja()));
-        destinacije.setAll(destinacijaRepository.findAll());
-        destinacijeTable.setItems(destinacije);
-        statusLabel.setText("Učitano " + destinacije.size() + " destinacija");
-    }
+        statusLabel.setText("Ucitavanje destinacija...");
 
-    @FXML
-    private void pretraziDestinacije() {
-        String pojam = searchField.getText().trim().toLowerCase();
-        List<Destinacija> filtrirane = destinacijaRepository.findAll().stream()
-                .filter(d -> d.getNaziv().toLowerCase().contains(pojam))
-                .collect(Collectors.toList());
+        Task<List<Destinacija>> task = new Task<>() {
+            @Override
+            protected List<Destinacija> call() {
+                return destinacijaService.findAllSorted();
+            }
+        };
 
-        destinacijeTable.setItems(FXCollections.observableArrayList(filtrirane));
-        statusLabel.setText("Pronađeno " + filtrirane.size() + " destinacija");
-    }
+        task.setOnSucceeded(event -> {
+            destinacije.setAll(task.getValue());
+            destinacijeTable.setItems(destinacije);
+            statusLabel.setText("Ucitano " + destinacije.size() + " destinacija");
+        });
 
-    @FXML
-    private void filtrirajPoZemlji() {
-        Zemlja odabranaZemlja = zemljaFilter.getValue();
-        if (odabranaZemlja == null) return;
+        task.setOnFailed(event -> {
+            statusLabel.setText("Greska pri ucitavanju destinacija");
+            task.getException().printStackTrace();
+        });
 
-        List<Destinacija> filtrirane = destinacijaRepository.findByZemlja(odabranaZemlja.getId());
-        destinacijeTable.setItems(FXCollections.observableArrayList(filtrirane));
-        statusLabel.setText("Filtrirano po zemlji: " + odabranaZemlja.getNaziv());
-    }
-
-    @FXML
-    private void filtrirajPoVrsti() {
-        VrstaPutovanja odabranaVrsta = vrstaPutovanjaFilter.getValue();
-        if (odabranaVrsta == null) return;
-
-        List<Destinacija> filtrirane = destinacijaRepository.findByVrstaPutovanja(odabranaVrsta);
-        destinacijeTable.setItems(FXCollections.observableArrayList(filtrirane));
-        statusLabel.setText("Filtrirano po vrsti putovanja: " + odabranaVrsta);
+        new Thread(task).start();
     }
 
     @FXML
@@ -193,19 +235,36 @@ public class MainController implements Initializable {
 
     @FXML
     private void exportXml() {
-        List<DestinacijaXml> xmlDestinacije = destinacijaRepository.findAll()
-                .stream()
-                .map(DestinacijaXml::new)
-                .toList();
+        statusLabel.setText("Exportiranje u ML...");
 
-        String path = "exports/destinacije.xml";
-        XmlExporter.export(xmlDestinacije, path);
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() {
+                List<DestinacijaXml> xmlDestinacije = destinacijaRepository.findAll()
+                        .stream()
+                        .map(DestinacijaXml::new)
+                        .toList();
 
-        XmlLogger.log(
-                SessionManager.getInstance().getKorisnickoIme(),
-                "EXPORT",
-                "Exportirano " + xmlDestinacije.size() + " destinacija");
+                String path = "exports/destinacije.xml";
+                XmlExporter.export(xmlDestinacije, path);
 
-        statusLabel.setText("Exportirano u " + path);
+                XmlLogger.log(
+                        SessionManager.getInstance().getKorisnickoIme(),
+                        "EXPORT",
+                        "Exportirano " + xmlDestinacije.size() + " destinacija u XML");
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(event -> {
+            statusLabel.setText("Export zavrsen! (exports/destinacije.xml)");
+        });
+
+        task.setOnFailed(event -> {
+            statusLabel.setText("Greska pri exportu u XML");
+            task.getException().printStackTrace();
+        });
+
+        new Thread(task).start();
     }
 }
