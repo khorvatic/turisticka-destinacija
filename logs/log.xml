@@ -1,6 +1,606 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <log>
+                                                                            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 12:55:28</timestamp>
+                                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>LOGIN</akcija>
+                                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Korisnik se prijavio</opis>
+                                                                                                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
+                                                                        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 12:56:43</timestamp>
+                                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>LOGIN</akcija>
+                                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Korisnik se prijavio</opis>
+                                                                                                                                            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
+                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 12:56:50</timestamp>
+                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>EXPORT</akcija>
+                                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Exportirano 3 destinacija</opis>
+                                                                                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
+                                                                
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 19:42:32</timestamp>
+                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>LOGIN</akcija>
+                                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Korisnik se prijavio</opis>
+                                                                                                                            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
+                                                            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 20:09:34</timestamp>
+                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>LOGIN</akcija>
+                                                                                                                        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Korisnik se prijavio</opis>
+                                                                                                                    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
+                                                        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <entry>
+                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <timestamp>2026-06-08 20:29:59</timestamp>
+                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <korisnik>user</korisnik>
+                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <akcija>LOGIN</akcija>
+                                                                                                                
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <opis>Korisnik se prijavio</opis>
+                                                                                                            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </entry>
                                                     
+    
     
     
     
@@ -25,7 +625,7 @@
         
         
         
-        <timestamp>2026-06-08 12:55:28</timestamp>
+        <timestamp>2026-06-09 13:07:22</timestamp>
                                                                                                         
         
         
@@ -38,7 +638,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                                                         
         
         
@@ -102,7 +702,7 @@
         
         
         
-        <timestamp>2026-06-08 12:56:43</timestamp>
+        <timestamp>2026-06-09 13:08:44</timestamp>
                                                                                                 
         
         
@@ -114,7 +714,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                                                 
         
         
@@ -173,7 +773,7 @@
         
         
         
-        <timestamp>2026-06-08 12:56:50</timestamp>
+        <timestamp>2026-06-09 13:09:06</timestamp>
                                                                                         
         
         
@@ -184,7 +784,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                                         
         
         
@@ -195,7 +795,7 @@
         
         
         
-        <akcija>EXPORT</akcija>
+        <akcija>LOGIN</akcija>
                                                                                         
         
         
@@ -206,7 +806,7 @@
         
         
         
-        <opis>Exportirano 3 destinacija</opis>
+        <opis>Korisnik se prijavio</opis>
                                                                                     
     
     
@@ -238,7 +838,7 @@
         
         
         
-        <timestamp>2026-06-08 19:42:32</timestamp>
+        <timestamp>2026-06-09 13:09:57</timestamp>
                                                                                 
         
         
@@ -248,7 +848,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                                 
         
         
@@ -297,7 +897,7 @@
         
         
         
-        <timestamp>2026-06-08 20:09:34</timestamp>
+        <timestamp>2026-06-09 13:14:25</timestamp>
                                                                         
         
         
@@ -306,7 +906,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                         
         
         
@@ -350,7 +950,7 @@
         
         
         
-        <timestamp>2026-06-08 20:29:59</timestamp>
+        <timestamp>2026-06-09 13:18:51</timestamp>
                                                                 
         
         
@@ -358,7 +958,7 @@
         
         
         
-        <korisnik>user</korisnik>
+        <korisnik>admin</korisnik>
                                                                 
         
         
@@ -397,7 +997,7 @@
         
         
         
-        <timestamp>2026-06-09 13:07:22</timestamp>
+        <timestamp>2026-06-09 13:21:59</timestamp>
                                                         
         
         
@@ -438,7 +1038,7 @@
         
         
         
-        <timestamp>2026-06-09 13:08:44</timestamp>
+        <timestamp>2026-06-10 15:02:01</timestamp>
                                                 
         
         
@@ -473,7 +1073,7 @@
         
         
         
-        <timestamp>2026-06-09 13:09:06</timestamp>
+        <timestamp>2026-06-10 15:02:40</timestamp>
                                         
         
         
@@ -502,7 +1102,7 @@
                                 
         
         
-        <timestamp>2026-06-09 13:09:57</timestamp>
+        <timestamp>2026-06-10 15:17:44</timestamp>
                                 
         
         
@@ -525,7 +1125,7 @@
     <entry>
                         
         
-        <timestamp>2026-06-09 13:14:25</timestamp>
+        <timestamp>2026-06-10 15:30:01</timestamp>
                         
         
         <korisnik>admin</korisnik>
@@ -542,7 +1142,7 @@
     
     <entry>
                 
-        <timestamp>2026-06-09 13:18:51</timestamp>
+        <timestamp>2026-06-10 15:32:25</timestamp>
                 
         <korisnik>admin</korisnik>
                 
@@ -553,7 +1153,7 @@
     </entry>
     
     <entry>
-        <timestamp>2026-06-09 13:21:59</timestamp>
+        <timestamp>2026-06-10 15:34:06</timestamp>
         <korisnik>admin</korisnik>
         <akcija>LOGIN</akcija>
         <opis>Korisnik se prijavio</opis>

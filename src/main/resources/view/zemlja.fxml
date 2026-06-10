@@ -56,7 +56,7 @@
     </center>
 
     <bottom>
-        <HBox style="-fx-padding: 5; -fx-background-color: #white;">
+        <HBox style="-fx-padding: 5; -fx-background-color: white;">
             <Label fx:id="statusLabel" text="Spremno"/>
         </HBox>
     </bottom>

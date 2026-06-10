@@ -1,6 +1,7 @@
 package hr.algebra.turistika.repository;
 
 import hr.algebra.turistika.model.Aktivnost;
+import hr.algebra.turistika.model.Zemlja;
 
 import java.util.List;
 import java.util.Optional;

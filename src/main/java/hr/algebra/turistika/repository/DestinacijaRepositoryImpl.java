@@ -249,7 +249,7 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
         try (var stmt = connection.prepareStatement(sql)){
             for (TuristickiVodic v : destinacija.getTuristickiVodici()){
                 stmt.setLong(1, destinacija.getId());
-                stmt.setLong(1, v.getId());
+                stmt.setLong(2, v.getId());
                 stmt.executeUpdate();
             }
         }

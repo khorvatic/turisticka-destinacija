@@ -22,5 +22,13 @@
             onAction="#ucitajTestPodatke"
             prefWidth="200"
             style="-fx-background-color: orange; -fx-text-fill: white;"/>
+    <Button text="Napravi backup"
+            onAction="#backup"
+            prefWidth="200"
+            style="-fx-background-color: magenta; -fx-text-fill: white;"/>
+    <Button text="Restore backup"
+            onAction="#restoreBackup"
+            prefWidth="200"
+            style="-fx-background-color: teal; -fx-text-fill: white;"/>
     <Label fx:id="statusLabel" text="" style="-fx-text-fill: green;"/>
 </VBox>
