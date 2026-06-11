@@ -1,9 +1,6 @@
 package hr.algebra.turistika.controller;
 
-import hr.algebra.turistika.model.Aktivnost;
-import hr.algebra.turistika.model.Destinacija;
-import hr.algebra.turistika.model.VrstaPutovanja;
-import hr.algebra.turistika.model.Zemlja;
+import hr.algebra.turistika.model.*;
 import hr.algebra.turistika.repository.DestinacijaRepository;
 import hr.algebra.turistika.repository.DestinacijaRepositoryImpl;
 import hr.algebra.turistika.repository.ZemljaRepository;
@@ -17,9 +14,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.net.URL;
@@ -35,6 +35,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<Destinacija, String> vrstaPutovanjaColumn;
     @FXML private TableColumn<Destinacija, String> godisnjeDobaColumn;
     @FXML private TableColumn<Destinacija, String> aktivnostiColumn;
+    @FXML private MenuItem adminPanel;
 
     @FXML private TextField searchField;
     @FXML private ComboBox<Zemlja> zemljaFilter;
@@ -43,6 +44,7 @@ public class MainController implements Initializable {
     @FXML private Label statusLabel;
 
     @FXML private DestinacijaFormaController destinacijaFormaController;
+    @FXML private DestinacijaDetaljiController destinacijaDetaljiController;
 
     private final DestinacijaRepository destinacijaRepository = new DestinacijaRepositoryImpl();
     private final ZemljaRepository zemljaRepository = new ZemljaRepositoryImpl();
@@ -58,6 +60,7 @@ public class MainController implements Initializable {
         postaviFilterListenere();
         ucitajDestinacije();
         statusLabel.setText("Destiancija uspjesno spremljena!");
+
         destinacijaFormaController.postaviOnSpremi(() -> {
             ucitajDestinacije();
             statusLabel.setText("Destinacija uspjesno spremljena!");
@@ -67,6 +70,12 @@ public class MainController implements Initializable {
                     "Spremljena destinacija"
             );
         });
+
+        destinacijaDetaljiController.sakrijPanel();
+        destinacijaDetaljiController.postaviOnSlikaUploaded(() -> ucitajDestinacije());
+
+        boolean isAdmin = SessionManager.getInstance().getTrenutniKorisnik() instanceof Admin;
+        adminPanel.setVisible(isAdmin);
     }
 
     private void postaviKolone(){
@@ -183,6 +192,7 @@ public class MainController implements Initializable {
 
     @FXML
     private void otvoriDodajDestinaciju() {
+        destinacijaDetaljiController.sakrijPanel();
         destinacijaFormaController.otvoriZaDodavanje();
         statusLabel.setText("Dodavanje nove destinacije...");
     }
@@ -194,6 +204,7 @@ public class MainController implements Initializable {
             statusLabel.setText("Odaberite destinaciju za uređivanje!");
             return;
         }
+        destinacijaDetaljiController.sakrijPanel();
         destinacijaFormaController.otvoriZaUredivanje(odabranaDestinacija);
         statusLabel.setText("Uredivanje: " + odabranaDestinacija.getNaziv());
     }
@@ -231,6 +242,10 @@ public class MainController implements Initializable {
             statusLabel.setText("Odaberite destinaciju!");
             return;
         }
+
+        destinacijaFormaController.sakrijFormu();
+        destinacijaDetaljiController.prikaziDestinaciju(odabrana);
+        statusLabel.setText("Prikaz detalja za: " + odabrana.getNaziv());
     }
 
     @FXML
@@ -266,5 +281,36 @@ public class MainController implements Initializable {
         });
 
         new Thread(task).start();
+    }
+
+    @FXML
+    private void odjava() {
+        SessionManager.getInstance().postavi(null);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
+                    .getResource("view/login.fxml"));
+            Stage stage = (Stage) statusLabel.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Turisticka destinacija");
+        } catch (Exception e) {
+            throw new RuntimeException("Greska pri odjavi", e);
+        }
+    }
+
+    @FXML
+    private void natragNaAdmin() {
+        System.out.println("1 - pocetak");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader()
+                    .getResource("view/admin.fxml"));
+
+            Stage stage = (Stage) statusLabel.getScene().getWindow();
+            stage.setScene(new Scene(loader.load()));
+            stage.setTitle("Admin panel");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Greska pri povratku na admin panel", e);
+        }
     }
 }

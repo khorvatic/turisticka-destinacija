@@ -27,12 +27,15 @@ public class DestinacijaRepositoryImpl implements DestinacijaRepository{
         try(Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(sql)){
 
+            System.out.println("findAll pokrenut, connection: " + connection.isClosed());
             while(rs.next()){
+                System.out.println("Destinacija: " + rs.getString("naziv"));
                 Destinacija d = mapResultSet(rs);
                 ucitajAktivnosti(d);
                 ucitajVodice(d);
                 destinacije.add(d);
             }
+            System.out.println("Ukupno destinacija: " + destinacije.size());
         } catch (SQLException e){
             throw new RuntimeException("Greska pri dohvacanju destinacija", e);
         }

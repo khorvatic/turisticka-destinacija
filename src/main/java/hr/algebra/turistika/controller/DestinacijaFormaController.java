@@ -131,7 +131,7 @@ public class DestinacijaFormaController implements Initializable {
         formaPanel.setManaged(true);
     }
 
-    private void sakrijFormu(){
+    public void sakrijFormu(){
         formaPanel.setVisible(false);
         formaPanel.setManaged(false);
     }

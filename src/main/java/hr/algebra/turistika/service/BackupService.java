@@ -3,6 +3,7 @@ package hr.algebra.turistika.service;
 import hr.algebra.turistika.model.*;
 import hr.algebra.turistika.repository.*;
 import hr.algebra.turistika.util.DatabaseInitializer;
+import hr.algebra.turistika.util.DatabaseUtil;
 import hr.algebra.turistika.xml.*;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
@@ -37,6 +38,8 @@ public class BackupService {
         List<DestinacijaBackup> destinacije = destinacijaRepository.findAll().stream()
                 .map(DestinacijaBackup::new).toList();
 
+        System.out.println("Backup destinacija: " + destinacije.size());
+
         DatabaseBackup backup = new DatabaseBackup(zemlje, aktivnosti, vodici, destinacije);
 
         try {
@@ -69,18 +72,52 @@ public class BackupService {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             DatabaseBackup backup = (DatabaseBackup) unmarshaller.unmarshal(file);
 
+            System.out.println("Zemlje: " + (backup.getZemlje() != null ? backup.getZemlje().size() : "NULL"));
+            System.out.println("Aktivnosti: " + (backup.getAktivnosti() != null ? backup.getAktivnosti().size() : "NULL"));
+            System.out.println("Vodici: " + (backup.getVodici() != null ? backup.getVodici().size() : "NULL"));
+            System.out.println("Destinacije: " + (backup.getDestinacije() != null ? backup.getDestinacije().size() : "NULL"));
             // Obrise postojece podatke
             DatabaseInitializer.executeScript("sql/clear_tables.sql");
             DatabaseInitializer.createDefaultAdmin();
-
             restoreVrstePutovanja();
-            backup.getZemlje().forEach(z ->
-                    zemljaRepository.save(new Zemlja(z.getId(), z.getNaziv(), z.getKodDrzave())));
-            backup.getAktivnosti().forEach(a ->
-                    aktivnostRepository.save(new Aktivnost(a.getId(), a.getNaziv(), a.getOpis())));
-            backup.getVodici().forEach(v ->
-                    turistickiVodicRepository.save(new TuristickiVodic(v.getId(), v.getIme(), v.getPrezime(), v.getKontakt())));
-            backup.getDestinacije().forEach(d -> {
+
+            var connection = DatabaseUtil.getInstance().getConnection();
+
+            // Zemlja
+            try (var stmt = connection.prepareStatement(
+                    "INSERT INTO Zemlja(id, naziv, kod_drzave) VALUES (?, ?, ?)")) {
+                for (ZemljaBackup z : backup.getZemlje()) {
+                    stmt.setLong(1, z.getId());
+                    stmt.setString(2, z.getNaziv());
+                    stmt.setString(3, z.getKodDrzave());
+                    stmt.executeUpdate();
+                }
+            }
+
+            // Aktivnost
+            try (var stmt = connection.prepareStatement(
+                    "INSERT INTO Aktivnost(id, naziv, opis) VALUES (?, ?, ?)")) {
+                for (AktivnostBackup a : backup.getAktivnosti()) {
+                    stmt.setLong(1, a.getId());
+                    stmt.setString(2, a.getNaziv());
+                    stmt.setString(3, a.getOpis());
+                    stmt.executeUpdate();
+                }
+            }
+
+            // TuristickiVodic
+            try (var stmt = connection.prepareStatement(
+                    "INSERT INTO TuristickiVodic(id, ime, prezime, kontakt) VALUES (?, ?, ?, ?)")) {
+                for (VodicBackup v : backup.getVodici()) {
+                    stmt.setLong(1, v.getId());
+                    stmt.setString(2, v.getIme());
+                    stmt.setString(3, v.getPrezime());
+                    stmt.setString(4, v.getKontakt());
+                }
+            }
+
+            // Destinacija
+            for (DestinacijaBackup d : backup.getDestinacije()) {
                 Zemlja zemlja = zemljaRepository.findById(d.getZemljaId()).orElse(null);
                 VrstaPutovanja vrsta = VrstaPutovanja.valueOf(d.getVrstaPutovanja());
                 Destinacija dest = new Destinacija(d.getId(), d.getNaziv(), d.getOpis(),
@@ -89,10 +126,39 @@ public class BackupService {
 
                 if (d.getAktivnostiIds() != null) {
                     d.getAktivnostiIds().forEach(id ->
-                        aktivnostRepository.findById(id).ifPresent(dest::addAktivnost));
+                            aktivnostRepository.findById(id).ifPresent(dest::addAktivnost));
                 }
-                destinacijaRepository.save(dest);
-            });
+
+                // Destinacija.save() samo sto moramo forsirati ID
+                try (var stmt = connection.prepareStatement(
+                        """
+                            INSERT INTO Destinacija(id, naziv, opis, latitude, longitude, preporucenoGodisnjeDoba, putanjaFotografija, zemljaId, vrstaPutovanjaId)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            """
+                )) {
+                    stmt.setLong(1, d.getId());
+                    stmt.setString(2, d.getNaziv());
+                    stmt.setString(3, d.getOpis());
+                    stmt.setDouble(4, d.getLatitude() != null ? d.getLatitude() : 0);
+                    stmt.setDouble(5, d.getLongitude() != null ? d.getLongitude() : 0);
+                    stmt.setString(6, d.getPreprucenoGodisnjeDoba());
+                    stmt.setString(7, "");
+                    stmt.setLong(8, d.getZemljaId());
+                    stmt.setInt(9, vrsta.ordinal() + 1);
+                    stmt.executeUpdate();
+                }
+
+                if (d.getAktivnostiIds() != null) {
+                    try (var stmt = connection.prepareStatement(
+                            "INSERT INTO DestinacijaAktivnost VALUES (?, ?)")) {
+                        for (Long aktivnostId : d.getAktivnostiIds()) {
+                            stmt.setLong(1, d.getId());
+                            stmt.setLong(2, aktivnostId);
+                            stmt.executeUpdate();
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
             throw new RuntimeException("Greska pri restore baze podataka", e);
         }

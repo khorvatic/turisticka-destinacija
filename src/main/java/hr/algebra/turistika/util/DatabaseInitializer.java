@@ -16,7 +16,7 @@ public class DatabaseInitializer {
     public static void insertTestData(){
         try (var stmt = DatabaseUtil.getInstance()
                 .getConnection().createStatement()) {
-            var rs = stmt.executeQuery("SELECT COUNT(*) FROM Zemlja");
+            var rs = stmt.executeQuery("SELECT COUNT(*) FROM Destinacija");
             if (rs.next() && rs.getInt(1) > 0) {
                 System.out.println("Podaci vec postoje, preskacem");
                 return;

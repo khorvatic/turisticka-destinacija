@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="hr.algebra.turistika.controller.DestinacijaDetaljiController"
+      fx:id="detaljiPanel"
+      spacing="10"
+      style="-fx-padding: 15; -fx-background-color: white; -fx-border-color: #ddd; -fx-border-width: 0 0 0 1;"
+      prefWidth="350.0">
+
+    <Label fx:id="nazivLabel" text=""
+           style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <Label fx:id="drzavaLabel" text=""
+           style="-fx-font-size: 13; -fx-text-fill: #666"/>
+    <Separator/>
+
+    <ImageView fx:id="slikaView" fitWidth="320" fitHeight="200"
+               preserveRatio="true"/>
+    <Button fx:id="uploadSlikuButton" text="Upload sliku"
+            onAction="#uploadSliku"
+            style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+    <Separator/>
+
+    <VBox spacing="5">
+        <Label text="Opis" style="-fx-font-weight: bold;"/>
+        <Label fx:id="opisLabel" text="" wrapText="true"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Vrsta putovanja" style="-fx-font-weight: bold;"/>
+        <Label fx:id="vrstaPutovanjaLabel" text=""/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Preporuceno godisnje doba" style="-fx-font-weight: bold;"/>
+        <Label fx:id="godisnjeDobaLabel" text=""/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Koordinate" style="-fx-font-weight: bold;"/>
+        <Label fx:id="koordinateLabel" text=""/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Aktivnosti" style="-fx-font-weight: bold;"/>
+        <Label fx:id="aktivnostiLabel" text="" wrapText="true"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Turisticki vodici" style="-fx-font-weight: bold;"/>
+        <Label fx:id="vodiciLabel" text="" wrapText="true"/>
+    </VBox>
+
+</VBox>

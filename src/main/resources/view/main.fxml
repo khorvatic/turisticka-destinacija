@@ -14,10 +14,13 @@
         <MenuBar>
             <Menu text="Destinacije">
                 <MenuItem text="Sve destinacije" onAction="#ucitajDestinacije"/>
-                <MenuItem text="Dodaj destinaciju" onAction="#otvoriDodajDestinaciju"/>
             </Menu>
             <Menu text="Export">
                 <MenuItem text="XML Export" onAction="#exportXml"/>
+            </Menu>
+            <Menu text="Racun">
+                <MenuItem fx:id="adminPanel" text="Admin panel" onAction="#natragNaAdmin"/>
+                <MenuItem text="Odjava" onAction="#odjava"/>
             </Menu>
         </MenuBar>
     </top>
@@ -64,6 +67,10 @@
 
             <fx:include fx:id="destinacijaForma"
                         source="destinacija-forma.fxml"
+                        prefWidth="350"/>
+
+            <fx:include source="destnacija-detalji.fxml"
+                        fx:id="destinacijaDetalji"
                         prefWidth="350"/>
         </HBox>
     </center>
